@@ -5,6 +5,16 @@ import Decks from './components/Decks';
 import NewDeck from './components/NewDeck';
 import { Ionicons } from '@expo/vector-icons';
 import { Constants } from 'expo'
+import { applyMiddleware, createStore } from 'redux';
+import reducer from './reducers';
+import thunk from 'redux-thunk';
+import { Provider } from 'react-redux';
+
+
+const store = createStore(
+    reducer,
+    applyMiddleware(thunk)
+);
 
 function FlashCardsStatusBar (props) {
   return (
@@ -34,10 +44,12 @@ const Tabs = TabNavigator({
 export default class App extends React.Component {
   render() {
     return (
-      <View style={{flex: 1}}>
-        <FlashCardsStatusBar barStyle="dark-content" />
-        <Tabs />
-      </View>
+      <Provider store={store}>
+        <View style={{flex: 1}}>
+          <FlashCardsStatusBar barStyle="dark-content" />
+          <Tabs />
+        </View>
+      </Provider>
     );
   }
 }

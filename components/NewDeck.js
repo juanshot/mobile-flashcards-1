@@ -1,27 +1,34 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
 import { gray, lightGray, primary, white } from '../utils/colors';
+import { connect } from "react-redux";
+import { addDeck } from '../actions/index';
 
-export default class NewDeck extends Component {
+class NewDeck extends Component {
   state = {
-    deckName: '',
+    title: '',
+  }
+
+  submit() {
+    this.props.dispatch(addDeck(this.state.title));
   }
 
   render() {
-    const disabled = this.state.deckName.trim().length === 0;
+    const disabled = this.state.title.trim().length === 0;
     return (
       <View style={styles.container}>
         <Text style={styles.title}>What is the title of your new deck?</Text>
         <View style={styles.deckNameContainer}>
           <TextInput
             style={styles.deckNameInput}
-            onChangeText={(deckName) => this.setState({deckName})}
-            value={this.state.deckName}
+            onChangeText={(title) => this.setState({title})}
+            value={this.state.title}
           />
         </View>
         <TouchableOpacity
           style={[styles.submitBtn, disabled && styles.submitBtnDisabled]}
           disabled={disabled}
+          onPress={() => {this.submit()}}
         >
           <Text style={styles.submitBtnText}>Add new deck</Text>
         </TouchableOpacity>
@@ -29,6 +36,8 @@ export default class NewDeck extends Component {
     )
   }
 }
+
+export default connect()(NewDeck);
 
 const styles = StyleSheet.create({
   container: {
