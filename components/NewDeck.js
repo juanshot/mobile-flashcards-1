@@ -1,19 +1,28 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
-import { gray, purple, white } from '../utils/colors';
+import { gray, lightGray, primary, white } from '../utils/colors';
 
 export default class NewDeck extends Component {
+  state = {
+    deckName: '',
+  }
+
   render() {
+    const disabled = this.state.deckName.trim().length === 0;
     return (
       <View style={styles.container}>
         <Text style={styles.title}>What is the title of your new deck?</Text>
         <View style={styles.deckNameContainer}>
           <TextInput
             style={styles.deckNameInput}
+            onChangeText={(deckName) => this.setState({deckName})}
+            value={this.state.deckName}
           />
         </View>
         <TouchableOpacity
-            style={styles.submitBtn}>
+          style={[styles.submitBtn, disabled && styles.submitBtnDisabled]}
+          disabled={disabled}
+        >
           <Text style={styles.submitBtnText}>Add new deck</Text>
         </TouchableOpacity>
       </View>
@@ -44,12 +53,15 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   submitBtn: {
-    backgroundColor: purple,
+    backgroundColor: primary,
     padding: 10,
     borderRadius: 7,
     height: 45,
     marginLeft: 40,
     marginRight: 40,
+  },
+  submitBtnDisabled: {
+    backgroundColor: lightGray,
   },
   submitBtnText: {
     color: white,
