@@ -1,9 +1,18 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar, StyleSheet, Text, View } from 'react-native';
 import { TabNavigator } from 'react-navigation'
 import Decks from './components/Decks';
 import NewDeck from './components/NewDeck';
 import { Ionicons } from '@expo/vector-icons';
+import { Constants } from 'expo'
+
+function FlashCardsStatusBar (props) {
+  return (
+      <View style={{ height: Constants.statusBarHeight }}>
+        <StatusBar translucent {...props} />
+      </View>
+  )
+}
 
 const Tabs = TabNavigator({
   Decks: {
@@ -26,6 +35,7 @@ export default class App extends React.Component {
   render() {
     return (
       <View style={{flex: 1}}>
+        <FlashCardsStatusBar barStyle="dark-content" />
         <Tabs />
       </View>
     );
