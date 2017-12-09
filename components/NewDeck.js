@@ -10,9 +10,18 @@ class NewDeck extends Component {
   }
 
   submit() {
-    this.props.dispatch(addDeck(this.state.title));
-    this.setState({title: ''});
+    const deck = {
+      id: Date.now(),
+      title: this.state.title,
+    };
+
+    this.props.dispatch(addDeck(deck));
     this.toHome();
+    this.props.navigation.navigate(
+      'Deck',
+      deck
+    );
+    this.setState({title: ''});
   }
 
   toHome() {

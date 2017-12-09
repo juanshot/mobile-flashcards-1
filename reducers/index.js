@@ -14,8 +14,7 @@ function decks(state = {loaded: false, collection: []}, action) {
         collection: [
           ...state.collection,
           {
-            id: Date.now(),
-            title: action.title,
+            ...action.deck,
             cards: [],
           }
         ]

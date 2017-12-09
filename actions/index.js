@@ -10,10 +10,10 @@ export function setDecks(collection) {
   }
 }
 
-export function addDeck(title) {
+export function addDeck(deck) {
   return (dispatch, getState) => {
     dispatch({
-      title,
+      deck,
       type: ADD_DECK,
     });
 
