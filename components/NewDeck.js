@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-nativ
 import { gray, lightGray, primary, white } from '../utils/colors';
 import { connect } from "react-redux";
 import { addDeck } from '../actions/index';
+import { NavigationActions } from 'react-navigation';
 
 class NewDeck extends Component {
   state = {
@@ -11,6 +12,12 @@ class NewDeck extends Component {
 
   submit() {
     this.props.dispatch(addDeck(this.state.title));
+    this.setState({title: ''});
+    this.toHome();
+  }
+
+  toHome() {
+    this.props.navigation.navigate('Decks');
   }
 
   render() {
@@ -23,6 +30,7 @@ class NewDeck extends Component {
             style={styles.deckNameInput}
             onChangeText={(title) => this.setState({title})}
             value={this.state.title}
+            autoFocus={true}
           />
         </View>
         <TouchableOpacity
