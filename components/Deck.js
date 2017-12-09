@@ -11,14 +11,6 @@ class Deck extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    console.log('piu piu');
-    if (nextProps.deck) {
-      console.log('title', nextProps.deck.title);
-      this.props.navigation.setParams({ title: nextProps.deck.title });
-    }
-  }
-
   render() {
     return (
       <View style={styles.container}><Text>Deck</Text></View>
