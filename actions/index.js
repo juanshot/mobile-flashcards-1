@@ -2,6 +2,7 @@ import { getDecks, saveDecks } from '../utils/api';
 
 export const SET_DECKS = 'SET_DECKS';
 export const ADD_DECK = 'ADD_DECK';
+export const ADD_CARD = 'ADD_CARD';
 
 export function setDecks(collection) {
   return {
@@ -15,6 +16,18 @@ export function addDeck(deck) {
     dispatch({
       deck,
       type: ADD_DECK,
+    });
+
+    saveDecks(getState().collection);
+  }
+}
+
+export function addCard(deckId, card) {
+  return (dispatch, getState) => {
+    dispatch({
+      deckId,
+      card,
+      type: ADD_CARD,
     });
 
     saveDecks(getState().collection);

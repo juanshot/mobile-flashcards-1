@@ -10,6 +10,7 @@ import reducer from './reducers';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import Deck from "./components/Deck";
+import AddCard from "./components/AddCard";
 
 
 const store = createStore(
@@ -52,6 +53,9 @@ const MainNavigator = StackNavigator({
   },
   Deck: {
     screen: Deck,
+  },
+  AddCard: {
+    screen: AddCard,
   }
 });
 

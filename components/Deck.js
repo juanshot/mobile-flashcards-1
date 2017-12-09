@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from "react-redux"
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
-import { white, lightGray, primary } from "../utils/colors";
+import { white, lightGray, primary, success } from "../utils/colors";
 
 class Deck extends Component {
   static navigationOptions = ({navigation}) => {
@@ -17,17 +17,20 @@ class Deck extends Component {
     const disabled = deck.cards.length === 0;
     return (
       <View style={styles.container}>
-        <Text style={styles.info}>{deck.cards.length} cards</Text>
+        <Text style={styles.info}>{deck.cards.length} card{(deck.cards.length !== 1) && 's'}</Text>
 
         <TouchableOpacity
           style={[styles.btn]}
-          onPress={() => {}}
+          onPress={() => this.props.navigation.navigate(
+              'AddCard',
+              { id: deck.id }
+            )}
         >
           <Text style={styles.btnText}>Add Card</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={[styles.btn, disabled && styles.btnDisabled]}
+          style={[styles.btn, styles.btnSuccess, disabled && styles.btnDisabled]}
           disabled={disabled}
           onPress={() => {}}
         >
@@ -39,9 +42,9 @@ class Deck extends Component {
 }
 
 function mapStateToProps (decks, { navigation }) {
-  const { id } = navigation.state.params
+  const { id } = navigation.state.params;
   return {
-    deck: decks.collection.find(deck => deck.id == id)
+    deck: decks.collection.find(deck => deck.id === id)
   };
 }
 export default connect(mapStateToProps)(Deck);
@@ -66,6 +69,9 @@ const styles = StyleSheet.create({
   },
   btnDisabled: {
     backgroundColor: lightGray,
+  },
+  btnSuccess: {
+    backgroundColor: success,
   },
   btnText: {
     color: white,

@@ -1,5 +1,4 @@
-import { SET_DECKS } from '../actions';
-import { ADD_DECK } from '../actions/index';
+import { SET_DECKS, ADD_DECK, ADD_CARD } from '../actions';
 
 function decks(state = {loaded: false, collection: []}, action) {
   switch (action.type) {
@@ -18,6 +17,23 @@ function decks(state = {loaded: false, collection: []}, action) {
             cards: [],
           }
         ]
+      };
+    case ADD_CARD :
+      return {
+        ...state,
+        collection: state.collection.map(deck => {
+          if (deck.id !== action.deckId) {
+            return deck;
+          }
+
+          return {
+            ...deck,
+            cards: [
+              ...deck.cards,
+              action.card,
+            ]
+          };
+        })
       };
     default :
       return state

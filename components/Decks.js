@@ -40,7 +40,7 @@ class Decks extends Component {
               { id, title}
             )}>
               <Text style={styles.cardName}>{title}</Text>
-              <Text style={styles.cardInfo}>{cards.length} cards</Text>
+              <Text style={styles.cardInfo}>{cards.length} card{(cards.length !== 1) && 's'}</Text>
             </TouchableOpacity>
           </View>
         ))}
