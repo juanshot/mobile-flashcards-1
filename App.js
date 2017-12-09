@@ -1,6 +1,6 @@
 import React from 'react';
 import { StatusBar, StyleSheet, Text, View } from 'react-native';
-import { TabNavigator } from 'react-navigation'
+import { TabNavigator, StackNavigator } from 'react-navigation'
 import Decks from './components/Decks';
 import NewDeck from './components/NewDeck';
 import { Ionicons } from '@expo/vector-icons';
@@ -9,6 +9,7 @@ import { applyMiddleware, createStore } from 'redux';
 import reducer from './reducers';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
+import Deck from "./components/Deck";
 
 
 const store = createStore(
@@ -39,6 +40,19 @@ const Tabs = TabNavigator({
       tabBarIcon: ({ tintColor }) => <Ionicons name='ios-add' size={30} color={tintColor} />,
     },
   }
+},{
+  navigationOptions: {
+    header: null
+  }
+},);
+
+const MainNavigator = StackNavigator({
+  Home: {
+    screen: Tabs,
+  },
+  Deck: {
+    screen: Deck,
+  }
 });
 
 export default class App extends React.Component {
@@ -47,7 +61,7 @@ export default class App extends React.Component {
       <Provider store={store}>
         <View style={{flex: 1}}>
           <FlashCardsStatusBar barStyle="dark-content" />
-          <Tabs />
+          <MainNavigator />
         </View>
       </Provider>
     );

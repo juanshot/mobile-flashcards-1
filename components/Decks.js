@@ -6,6 +6,10 @@ import { AppLoading} from 'expo'
 import { gray } from "../utils/colors";
 
 class Decks extends Component {
+  static navigationOptions = {
+    title: 'Decks',
+  };
+
   componentDidMount() {
     this.props.dispatch(fetchDecks());
   }
@@ -31,7 +35,10 @@ class Decks extends Component {
       <ScrollView style={styles.container}>
         {collection.map(({id, title, cards}, i) => (
           <View style={[styles.card, (collection.length === i + 1) ? styles.cardLast : styles.cardNotLast ]} key={id}>
-            <TouchableOpacity style={styles.cardButton}>
+            <TouchableOpacity style={styles.cardButton} onPress={() => this.props.navigation.navigate(
+              'Deck',
+              { id, title}
+            )}>
               <Text style={styles.cardName}>{title}</Text>
               <Text style={styles.cardInfo}>{cards.length} cards</Text>
             </TouchableOpacity>
