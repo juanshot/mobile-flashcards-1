@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from "react-redux"
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
-import { white, lightGray, primary, success } from "../utils/colors";
+import { button } from "../utils/styles";
 
 class Deck extends Component {
   static navigationOptions = ({navigation}) => {
@@ -20,21 +20,21 @@ class Deck extends Component {
         <Text style={styles.info}>{deck.cards.length} card{(deck.cards.length !== 1) && 's'}</Text>
 
         <TouchableOpacity
-          style={[styles.btn]}
+          style={[button.btn, button.btnPrimary]}
           onPress={() => this.props.navigation.navigate(
               'AddCard',
               { id: deck.id }
             )}
         >
-          <Text style={styles.btnText}>Add Card</Text>
+          <Text style={button.btnLabel}>Add Card</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={[styles.btn, styles.btnSuccess, disabled && styles.btnDisabled]}
+          style={[button.btn, button.btnSuccess, disabled && button.btnDisabled]}
           disabled={disabled}
           onPress={() => {}}
         >
-          <Text style={styles.btnText}>Start Quiz</Text>
+          <Text style={button.btnLabel}>Start Quiz</Text>
         </TouchableOpacity>
       </View>
     )
@@ -58,24 +58,5 @@ const styles = StyleSheet.create({
   info: {
     fontSize: 22,
     marginBottom: 10,
-  },
-  btn: {
-    backgroundColor: primary,
-    padding: 10,
-    borderRadius: 7,
-    height: 45,
-    width: '80%',
-    marginBottom: 10
-  },
-  btnDisabled: {
-    backgroundColor: lightGray,
-  },
-  btnSuccess: {
-    backgroundColor: success,
-  },
-  btnText: {
-    color: white,
-    fontSize: 22,
-    textAlign: 'center',
   },
 });
