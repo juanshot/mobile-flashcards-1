@@ -1,19 +1,25 @@
 import { SET_DECKS } from '../actions';
 import { ADD_DECK } from '../actions/index';
 
-function decks(state = [], action) {
+function decks(state = {loaded: false, collection: []}, action) {
   switch (action.type) {
     case SET_DECKS :
-      return action.decks
+      return {
+        loaded: true,
+        collection: action.collection,
+      };
     case ADD_DECK :
-      return [
+      return {
         ...state,
-        {
-          id: Date.now(),
-          title: action.title,
-          cards: [],
-        }
-      ];
+        collection: [
+          ...state.collection,
+          {
+            id: Date.now(),
+            title: action.title,
+            cards: [],
+          }
+        ]
+      };
     default :
       return state
   }

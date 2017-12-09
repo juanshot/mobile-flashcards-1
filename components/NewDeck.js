@@ -3,7 +3,6 @@ import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-nativ
 import { gray, lightGray, primary, white } from '../utils/colors';
 import { connect } from "react-redux";
 import { addDeck } from '../actions/index';
-import { NavigationActions } from 'react-navigation';
 
 class NewDeck extends Component {
   state = {
