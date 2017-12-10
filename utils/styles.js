@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native'
-import { primary, success, lightGray, white, gray } from "./colors";
+import { primary, success, lightGray, white, gray, warning } from "./colors";
 
 export const button = StyleSheet.create({
   btn: {
@@ -14,6 +14,9 @@ export const button = StyleSheet.create({
   },
   btnSuccess: {
     backgroundColor: success,
+  },
+  btnWarning: {
+    backgroundColor: warning,
   },
   btnDisabled: {
     backgroundColor: lightGray,

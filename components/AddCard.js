@@ -6,7 +6,7 @@ import { button, input } from "../utils/styles";
 
 class AddCard extends Component {
   static navigationOptions = {
-    title: 'Add card',
+    title: 'Add Card',
   }
 
   state = {

@@ -13,17 +13,17 @@ class Deck extends Component {
   }
 
   render() {
-    const deck = this.props.deck;
-    const disabled = deck.cards.length === 0;
+    const { id, cards } = this.props.deck;
+    const disabled = cards.length === 0;
     return (
       <View style={styles.container}>
-        <Text style={styles.info}>{deck.cards.length} card{(deck.cards.length !== 1) && 's'}</Text>
+        <Text style={styles.info}>{cards.length} card{(cards.length !== 1) && 's'}</Text>
 
         <TouchableOpacity
           style={[button.btn, button.btnPrimary]}
           onPress={() => this.props.navigation.navigate(
               'AddCard',
-              { id: deck.id }
+              { id }
             )}
         >
           <Text style={button.btnLabel}>Add Card</Text>
@@ -32,7 +32,10 @@ class Deck extends Component {
         <TouchableOpacity
           style={[button.btn, button.btnSuccess, disabled && button.btnDisabled]}
           disabled={disabled}
-          onPress={() => {}}
+          onPress={() => this.props.navigation.navigate(
+            'Quiz',
+            { id }
+          )}
         >
           <Text style={button.btnLabel}>Start Quiz</Text>
         </TouchableOpacity>
@@ -44,7 +47,7 @@ class Deck extends Component {
 function mapStateToProps (decks, { navigation }) {
   const { id } = navigation.state.params;
   return {
-    deck: decks.collection.find(deck => deck.id === id)
+    deck: decks.collection.find(deck => id === id)
   };
 }
 export default connect(mapStateToProps)(Deck);

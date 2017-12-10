@@ -11,6 +11,7 @@ import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import Deck from "./components/Deck";
 import AddCard from "./components/AddCard";
+import Quiz from "./components/Quiz";
 
 
 const store = createStore(
@@ -40,11 +41,11 @@ const Tabs = TabNavigator({
       tabBarLabel: 'New Deck',
       tabBarIcon: ({ tintColor }) => <Ionicons name='ios-add' size={30} color={tintColor} />,
     },
-  }
+  },
 },{
   navigationOptions: {
-    header: null
-  }
+    header: null,
+  },
 },);
 
 const MainNavigator = StackNavigator({
@@ -56,7 +57,10 @@ const MainNavigator = StackNavigator({
   },
   AddCard: {
     screen: AddCard,
-  }
+  },
+  Quiz: {
+    screen: Quiz,
+  },
 });
 
 export default class App extends React.Component {
