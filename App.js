@@ -12,11 +12,13 @@ import { Provider } from 'react-redux';
 import Deck from "./components/Deck";
 import AddCard from "./components/AddCard";
 import Quiz from "./components/Quiz";
+import { setLocalNotification } from "./utils/notifications";
+import { quizNotification } from "./middleware/quiz-notification";
 
 
 const store = createStore(
     reducer,
-    applyMiddleware(thunk)
+    applyMiddleware(thunk, quizNotification)
 );
 
 function FlashCardsStatusBar (props) {
@@ -64,6 +66,10 @@ const MainNavigator = StackNavigator({
 });
 
 export default class App extends React.Component {
+  componentDidMount() {
+    setLocalNotification();
+  }
+
   render() {
     return (
       <Provider store={store}>

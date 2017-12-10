@@ -3,6 +3,8 @@ import { connect } from "react-redux"
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { button } from "../utils/styles";
 import { warning, lightGray } from "../utils/colors";
+import { completeQuiz } from "../actions/index";
+import { clearLocalNotification, setLocalNotification } from "../utils/notifications";
 
 class Quiz extends Component {
   static navigationOptions = {
@@ -20,6 +22,13 @@ class Quiz extends Component {
       card: this.state.card + 1,
       correct: this.state.correct + (isCorrect ? 1 : 0),
       question: true,
+    }, () => {
+      const {card} = this.state;
+      const {deck, dispatch} = this.props;
+      if (card === deck.cards.length) {
+        const date = (new Date()).toLocaleDateString();
+        dispatch(completeQuiz(deck.id, date));
+      }
     });
   }
 
@@ -80,7 +89,8 @@ class Quiz extends Component {
 function mapStateToProps (decks, { navigation }) {
   const { id } = navigation.state.params;
   return {
-    deck: decks.collection.find(deck => deck.id === id)
+    deck: decks.collection.find(deck => deck.id === id),
+    decks: decks.collection,
   };
 }
 export default connect(mapStateToProps)(Quiz);

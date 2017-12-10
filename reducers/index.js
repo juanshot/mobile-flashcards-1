@@ -1,4 +1,5 @@
 import { SET_DECKS, ADD_DECK, ADD_CARD } from '../actions';
+import { COMPLETE_QUIZ } from "../actions/index";
 
 function decks(state = {loaded: false, collection: []}, action) {
   switch (action.type) {
@@ -14,9 +15,24 @@ function decks(state = {loaded: false, collection: []}, action) {
           ...state.collection,
           {
             ...action.deck,
+            quizCompleted: null,
             cards: [],
           }
         ]
+      };
+    case COMPLETE_QUIZ :
+      return {
+        ...state,
+        collection: state.collection.map(deck => {
+          if (deck.id !== action.deckId) {
+            return deck;
+          }
+
+          return {
+            ...deck,
+            quizCompleted: action.date,
+          };
+        })
       };
     case ADD_CARD :
       return {
