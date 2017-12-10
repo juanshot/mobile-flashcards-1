@@ -38,7 +38,6 @@ class NewDeck extends Component {
             style={input.text}
             onChangeText={(title) => this.setState({title})}
             value={this.state.title}
-            autoFocus={true}
           />
         </View>
         <TouchableOpacity

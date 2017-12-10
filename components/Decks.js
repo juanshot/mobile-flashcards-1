@@ -3,7 +3,7 @@ import { connect } from "react-redux"
 import { ScrollView, Text, StyleSheet, View, TouchableOpacity } from 'react-native'
 import { fetchDecks } from '../actions/index';
 import { AppLoading} from 'expo'
-import { gray } from "../utils/colors";
+import { gray, card } from "../utils/colors";
 
 class Decks extends Component {
   static navigationOptions = {
@@ -86,6 +86,7 @@ const styles = StyleSheet.create({
     paddingBottom: 60,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: card,
   },
   cardName: {
     fontSize: 22,

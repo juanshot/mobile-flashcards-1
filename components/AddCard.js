@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
+import { KeyboardAvoidingView, View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
 import { connect } from "react-redux";
 import { addCard } from '../actions/index';
 import { button, input } from "../utils/styles";
@@ -30,7 +30,7 @@ class AddCard extends Component {
   render() {
     const disabled = this.state.question.trim().length === 0 || this.state.answer.trim().length === 0;
     return (
-      <View style={styles.container}>
+      <KeyboardAvoidingView style={styles.container} behavior="padding">
         <Text style={input.label}>What is the questions?</Text>
         <View style={input.container}>
           <TextInput
@@ -55,7 +55,7 @@ class AddCard extends Component {
         >
           <Text style={button.btnLabel}>Add card</Text>
         </TouchableOpacity>
-      </View>
+      </KeyboardAvoidingView>
     )
   }
 }
