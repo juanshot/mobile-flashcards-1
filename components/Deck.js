@@ -47,7 +47,7 @@ class Deck extends Component {
 function mapStateToProps (decks, { navigation }) {
   const { id } = navigation.state.params;
   return {
-    deck: decks.collection.find(deck => id === id)
+    deck: decks.collection.find(deck => deck.id === id)
   };
 }
 export default connect(mapStateToProps)(Deck);
