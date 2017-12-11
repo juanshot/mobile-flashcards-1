@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from "react-redux"
-import { ScrollView, Text, StyleSheet, View, TouchableOpacity } from 'react-native'
+import { ScrollView, Text, StyleSheet, View, TouchableOpacity, Animated } from 'react-native'
 import { fetchDecks } from '../actions/index';
 import { AppLoading} from 'expo'
 import { gray, card } from "../utils/colors";
@@ -10,8 +10,25 @@ class Decks extends Component {
     title: 'Decks',
   };
 
+  state: {
+    scales: {}
+  }
+
   componentDidMount() {
     this.props.dispatch(fetchDecks());
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.decks) {
+      this.setState({
+        scales: nextProps.decks.collection.reduce((acc, deck) => {
+          return {
+            ...acc,
+            [deck.id]: new Animated.Value(1),
+          }
+        }, {})
+      })
+    }
   }
   
   render() {
@@ -35,12 +52,16 @@ class Decks extends Component {
       <ScrollView style={styles.container}>
         {collection.map(({id, title, cards}, i) => (
           <View style={[styles.card, (collection.length === i + 1) ? styles.cardLast : styles.cardNotLast ]} key={id}>
-            <TouchableOpacity style={styles.cardButton} onPress={() => this.props.navigation.navigate(
-              'Deck',
-              { id, title}
-            )}>
-              <Text style={styles.cardName}>{title}</Text>
-              <Text style={styles.cardInfo}>{cards.length} card{(cards.length !== 1) && 's'}</Text>
+            <TouchableOpacity style={styles.cardButton} onPress={() => {
+              Animated.timing(this.state.scales[id], {toValue: 5, duration: 50}).start(() => {
+                this.props.navigation.navigate('Deck',{id, title});
+                Animated.timing(this.state.scales[id], {toValue: 1, duration: 50}).start();
+              });
+          }}>
+              <Animated.View style={{flex: 1, justifyContent: 'center', alignItems: 'center', transform: [{scale: this.state.scales[id]}]}}>
+                <Text style={styles.cardName}>{title}</Text>
+                <Text style={styles.cardInfo}>{cards.length} card{(cards.length !== 1) && 's'}</Text>
+              </Animated.View>
             </TouchableOpacity>
           </View>
         ))}
